@@ -3,6 +3,7 @@ const { formatters } = use('Validator')
 class StoreUser {
   get rules () {
     return {
+      age: 'required|max:10',
       email: 'required|email|max:180|unique:users,email',
       password: 'required|max:100'
     }

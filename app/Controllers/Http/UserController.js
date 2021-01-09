@@ -1,10 +1,10 @@
 'use strict'
 const User = use('App/Models/User')
-const Database = use('Database')
+
 
 class UserController {
     async store ({request, response}){
-        const userData = request.only(['email', 'password'])
+        const userData = request.only(['username', 'age', 'email', 'password'])
         const user = await User.create(userData)
 
         return response.created({
@@ -14,9 +14,10 @@ class UserController {
     }
 
     async update ({request, response}){
-        const userData = request.only(['Oemail','email', 'password'])
-        const Data = request.only(['email', 'password'])
+        const userData = request.only('Oemail')
+        const Data = request.only(['username','email', 'password'])
         const user = await User.findByOrFail('email', userData['Oemail'])
+        user.username = Data['username']
         user.email = Data['email']
         if (Data['password']){
             user.password = Data['password']
